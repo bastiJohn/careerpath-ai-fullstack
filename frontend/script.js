@@ -147,30 +147,16 @@ function renderResults(result) {
   resultsSection.classList.remove("hidden");
 }
 
-downloadPdfBtn.addEventListener("click", async () => {
-  pdfWarning.classList.add("hidden");
-  try {
-    const res = await fetch(`${API_BASE}/api/pdf`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ result: lastResult, scores: lastScores }),
-    });
-
-    if (!res.ok) throw new Error("PDF generation failed");
-
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "CareerPath_AI_Guidance_Report.pdf";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-  } catch (err) {
-    pdfWarning.textContent = "Your recommendation is ready above, but the PDF export hit a snag.";
-    pdfWarning.classList.remove("hidden");
-  }
+document.getElementById('download-pdf-btn').addEventListener('click', function () {
+    const element = document.getElementById('results-container'); // Change to your results wrapper ID
+    const opt = {
+        margin:       0.5,
+        filename:     'CareerPath_AI_Guidance_Report.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(element).save();
 });
 
 loadOnetQuestions();
