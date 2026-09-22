@@ -21,7 +21,7 @@ app = Flask(__name__)
 
 # Allowed origin for CORS
 ALLOWED_ORIGIN = os.environ.get("ALLOWED_ORIGIN", "http://localhost:8888")
-CORS(app, resources={r"/api/*": {"origins": ALLOWED_ORIGIN}})
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 client = genai.Client(api_key=GEMINI_API_KEY) if GEMINI_API_KEY else None
