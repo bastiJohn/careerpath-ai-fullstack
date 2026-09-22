@@ -1,5 +1,4 @@
-// Replace with your Railway deployment URL
-const API_BASE = "careerpath-ai-fullstack-production.up.railway.app";
+const API_BASE = "https://careerpath-ai-fullstack-production.up.railway.app";
 
 const consentCheckbox = document.getElementById("consentCheckbox");
 const consentWarning = document.getElementById("consentWarning");
