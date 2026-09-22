@@ -2,6 +2,7 @@
 from fpdf import FPDF
 from unidecode import unidecode
 
+
 def _safe(text):
     if text is None:
         return ""
