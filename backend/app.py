@@ -37,27 +37,16 @@ Do not recommend the old 4-strand (STEM/ABM/HUMSS/TVL) model — it no longer ex
 """
 
 def _generate_with_resilience(prompt: str):
-    """
-    Dynamically finds active text models for this API key 
-    to prevent 404 model name errors.
-    """
-    # 1. Fallback default models to check first
-    models_to_try = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-2.0-flash-exp"]
+    # Matches the exact active models listed in your Google AI Studio project usage
+    models_to_try = [
+        "gemini-3.5-flash-lite",
+        "gemini-3.8-flash"
+    ]
     
-    # 2. Query available models dynamically from Google client if possible
-    try:
-        available_models = [m.name.replace("models/", "") for m in client.models.list() if "generateContent" in getattr(m, 'supported_generation_methods', [])]
-        if available_models:
-            # Prioritize flash models from active list
-            flash_models = [m for m in available_models if "flash" in m]
-            models_to_try = flash_models + available_models + models_to_try
-    except Exception as list_err:
-        print(f"Could not list models dynamically: {list_err}")
-
     last_error = None
     for model_name in models_to_try:
         try:
-            print(f"Attempting generation with model: {model_name}")
+            print(f"Attempting model: {model_name}")
             response = client.models.generate_content(
                 model=model_name,
                 contents=prompt,
@@ -71,7 +60,7 @@ def _generate_with_resilience(prompt: str):
             last_error = e
             print(f"Model {model_name} failed: {e}")
             continue
-
+            
     raise last_error
 
 @app.route("/api/onet-questions", methods=["GET"])
