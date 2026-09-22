@@ -20,7 +20,7 @@ from pdf_generator import create_pdf_report
 load_dotenv()
 app = Flask(__name__)
 
-# Wildcard CORS during testing so browser error bodies are fully visible
+# Allow all origins to ensure detailed error bodies pass through CORS
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
@@ -37,15 +37,27 @@ Do not recommend the old 4-strand (STEM/ABM/HUMSS/TVL) model — it no longer ex
 """
 
 def _generate_with_resilience(prompt: str):
-    # Updated model string list according to API requirements
-    models_to_try = [
-        "gemini-1.5-flash",
-        "gemini-2.0-flash-exp",
-        "gemini-2.0-flash"
-    ]
+    """
+    Dynamically finds active text models for this API key 
+    to prevent 404 model name errors.
+    """
+    # 1. Fallback default models to check first
+    models_to_try = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-2.0-flash-exp"]
+    
+    # 2. Query available models dynamically from Google client if possible
+    try:
+        available_models = [m.name.replace("models/", "") for m in client.models.list() if "generateContent" in getattr(m, 'supported_generation_methods', [])]
+        if available_models:
+            # Prioritize flash models from active list
+            flash_models = [m for m in available_models if "flash" in m]
+            models_to_try = flash_models + available_models + models_to_try
+    except Exception as list_err:
+        print(f"Could not list models dynamically: {list_err}")
+
     last_error = None
     for model_name in models_to_try:
         try:
+            print(f"Attempting generation with model: {model_name}")
             response = client.models.generate_content(
                 model=model_name,
                 contents=prompt,
@@ -57,8 +69,9 @@ def _generate_with_resilience(prompt: str):
                 return response
         except Exception as e:
             last_error = e
-            print(f"Failed with {model_name}: {e}")
+            print(f"Model {model_name} failed: {e}")
             continue
+
     raise last_error
 
 @app.route("/api/onet-questions", methods=["GET"])
@@ -115,12 +128,9 @@ Output ONLY a valid JSON object matching this schema without any markdown wrappi
         response = _generate_with_resilience(prompt)
         text_output = response.text.strip()
         
-        # Regex extraction to safely grab JSON block even if model includes text
+        # Extract pure JSON object using regex
         json_match = re.search(r'\{.*\}', text_output, re.DOTALL)
-        if json_match:
-            clean_json_str = json_match.group(0)
-        else:
-            clean_json_str = text_output
+        clean_json_str = json_match.group(0) if json_match else text_output
 
         result = json.loads(clean_json_str)
         return jsonify({"result": result, "scores": riasec_scores})
