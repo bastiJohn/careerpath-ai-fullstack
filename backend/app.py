@@ -2,6 +2,7 @@ import os
 import io
 import json
 import time
+import re
 import traceback
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
@@ -19,7 +20,7 @@ from pdf_generator import create_pdf_report
 load_dotenv()
 app = Flask(__name__)
 
-# Allow all origins during dev/testing to prevent CORS masking on errors
+# Wildcard CORS during testing so browser error bodies are fully visible
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
@@ -36,28 +37,28 @@ Do not recommend the old 4-strand (STEM/ABM/HUMSS/TVL) model — it no longer ex
 """
 
 def _generate_with_resilience(prompt: str):
-    # Try standard models available in the API
-    models_to_try = ["gemini-2.5-flash", "gemini-2.0-flash"]
+    # Updated model string list according to API requirements
+    models_to_try = [
+        "gemini-1.5-flash",
+        "gemini-2.0-flash-exp",
+        "gemini-2.0-flash"
+    ]
     last_error = None
     for model_name in models_to_try:
-        for attempt in range(2):
-            try:
-                response = client.models.generate_content(
-                    model=model_name,
-                    contents=prompt,
-                    config=types.GenerateContentConfig(
-                        temperature=0.2,
-                        response_mime_type="application/json",
-                    ),
-                )
+        try:
+            response = client.models.generate_content(
+                model=model_name,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    temperature=0.2,
+                ),
+            )
+            if response and response.text:
                 return response
-            except Exception as e:
-                last_error = e
-                err_text = str(e)
-                if any(code in err_text for code in ("503", "UNAVAILABLE", "429", "RESOURCE_EXHAUSTED")):
-                    time.sleep(2 * (attempt + 1))
-                    continue
-                raise
+        except Exception as e:
+            last_error = e
+            print(f"Failed with {model_name}: {e}")
+            continue
     raise last_error
 
 @app.route("/api/onet-questions", methods=["GET"])
@@ -96,7 +97,7 @@ Commerce/business interest indicated: {commerce_interest}
 TLE specialization interest: {tle_track}
 RIASEC interest checklist results (count out of 10 per domain): {json.dumps(riasec_scores)}
 
-Return a valid JSON object matching this exact key structure:
+Output ONLY a valid JSON object matching this schema without any markdown wrapping or introductory text:
 {{
   "primary_track": "Academic or TechPro",
   "primary_cluster": "Name of cluster or specialization",
@@ -109,31 +110,29 @@ Return a valid JSON object matching this exact key structure:
   "career_suggestions": ["career 1", "career 2"],
   "institution_suggestions": ["school 1", "school 2"]
 }}
-
-Keep language concise, encouraging, and clear for a 16-year-old Philippine student.
-Describe fit qualitatively rather than fabricating precise statistics.
 """
     try:
         response = _generate_with_resilience(prompt)
         text_output = response.text.strip()
         
-        # Clean markdown codeblocks if returned
-        if text_output.startswith("```json"):
-            text_output = text_output[7:]
-        if text_output.startswith("```"):
-            text_output = text_output[3:]
-        if text_output.endswith("```"):
-            text_output = text_output[:-3]
-            
-        result = json.loads(text_output.strip())
+        # Regex extraction to safely grab JSON block even if model includes text
+        json_match = re.search(r'\{.*\}', text_output, re.DOTALL)
+        if json_match:
+            clean_json_str = json_match.group(0)
+        else:
+            clean_json_str = text_output
+
+        result = json.loads(clean_json_str)
         return jsonify({"result": result, "scores": riasec_scores})
+
     except Exception as e:
-        print("Detailed Error Stacktrace:")
-        traceback.print_exc()
+        error_trace = traceback.format_exc()
+        print("Detailed Generation Error:\n", error_trace)
         return jsonify({
             "error": "generation_failed",
             "message": "Something went wrong generating the recommendation.",
-            "technical_detail": str(e)
+            "technical_detail": str(e),
+            "traceback": error_trace
         }), 500
 
 @app.route("/api/pdf", methods=["POST"])
@@ -150,8 +149,8 @@ def pdf():
             download_name="CareerPath_AI_Guidance_Report.pdf"
         )
     except Exception as e:
-        print("PDF Generation Error Stacktrace:")
-        traceback.print_exc()
+        error_trace = traceback.format_exc()
+        print("Detailed PDF Error:\n", error_trace)
         return jsonify({
             "error": "pdf_failed",
             "message": "PDF export hit a snag.",
