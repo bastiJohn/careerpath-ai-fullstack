@@ -1,5 +1,5 @@
-// ⚠️ Update this to your actual Render backend URL after deployment (Step 3).
-const API_BASE = "https://careerpath-ai-backend.onrender.com";
+// Replace with your Railway deployment URL
+const API_BASE = "careerpath-ai-fullstack-production.up.railway.app";
 
 const consentCheckbox = document.getElementById("consentCheckbox");
 const consentWarning = document.getElementById("consentWarning");
@@ -18,7 +18,6 @@ let onetQuestions = {};
 let lastResult = null;
 let lastScores = null;
 
-// --- Consent gating ---
 consentCheckbox.addEventListener("change", () => {
   if (consentCheckbox.checked) {
     guidanceForm.classList.remove("hidden");
@@ -29,7 +28,6 @@ consentCheckbox.addEventListener("change", () => {
   }
 });
 
-// --- Load the 60-item O*NET pool from the backend (single source of truth) ---
 async function loadOnetQuestions() {
   try {
     const res = await fetch(`${API_BASE}/api/onet-questions`);
@@ -48,7 +46,7 @@ function renderAccordions() {
   for (const [domain, questions] of Object.entries(onetQuestions)) {
     const details = document.createElement("details");
     const summary = document.createElement("summary");
-    summary.textContent = `📌 ${domain} Activities`;
+    summary.textContent = `${domain} Activities`;
     details.appendChild(summary);
 
     questions.forEach((q, idx) => {
@@ -61,7 +59,6 @@ function renderAccordions() {
       label.append(" " + q);
       details.appendChild(label);
     });
-
     onetAccordions.appendChild(details);
   }
 }
@@ -77,7 +74,6 @@ function getRiasecScores() {
   return scores;
 }
 
-// --- Form submission ---
 guidanceForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   errorBox.classList.add("hidden");
@@ -139,7 +135,7 @@ function renderResults(result) {
     `<h3>${title}</h3><ul>${items.map((i) => `<li>${i}</li>`).join("")}</ul>`;
 
   resultsContent.innerHTML = `
-    <h2>Primary Recommendation: ${result.primary_track} — ${result.primary_cluster}</h2>
+    <h2>Primary Recommendation: ${result.primary_track} - ${result.primary_cluster}</h2>
     <p>${result.primary_rationale}</p>
     ${result.doorway_option ? `<p><strong>Doorway option:</strong> ${result.doorway_option}</p>` : ""}
     ${listSection("Prerequisite Gaps to Review", result.prerequisite_gaps)}
@@ -147,12 +143,11 @@ function renderResults(result) {
     ${listSection("Suggested TESDA Certifications", result.tesda_suggestions)}
     ${listSection("Scholarships to Look Into", result.scholarship_suggestions)}
     ${listSection("Entry-Level Career Paths", result.career_suggestions)}
-    ${listSection("Institutions to Check (confirm with your regional CHED/TESDA office)", result.institution_suggestions)}
+    ${listSection("Institutions to Check", result.institution_suggestions)}
   `;
   resultsSection.classList.remove("hidden");
 }
 
-// --- PDF download ---
 downloadPdfBtn.addEventListener("click", async () => {
   pdfWarning.classList.add("hidden");
   try {
@@ -161,6 +156,7 @@ downloadPdfBtn.addEventListener("click", async () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ result: lastResult, scores: lastScores }),
     });
+
     if (!res.ok) throw new Error("PDF generation failed");
 
     const blob = await res.blob();
@@ -173,7 +169,7 @@ downloadPdfBtn.addEventListener("click", async () => {
     a.remove();
     URL.revokeObjectURL(url);
   } catch (err) {
-    pdfWarning.textContent = "Your recommendation is ready above, but the PDF export hit a snag. You can still screenshot or copy the results on this page.";
+    pdfWarning.textContent = "Your recommendation is ready above, but the PDF export hit a snag.";
     pdfWarning.classList.remove("hidden");
   }
 });
