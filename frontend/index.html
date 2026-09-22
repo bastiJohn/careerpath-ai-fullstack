@@ -13,12 +13,8 @@
 
     <section id="consent-section">
       <details open>
-        <summary>📄 Data Privacy Notice, Terms of Use &amp; O*NET Attribution</summary>
-        <p>
-          We collect Grade 10 marks and interest responses to provide exploratory
-          guidance under RA 10173 (Data Privacy Act of 2012). Results are
-          decision-support estimates and do not replace human counselors.
-        </p>
+        <summary>Data Privacy Notice, Terms of Use &amp; O*NET Attribution</summary>
+        <p>We collect Grade 10 marks and interest responses to provide exploratory guidance under RA 10173 (Data Privacy Act of 2012). Results are decision-support estimates and do not replace human counselors.</p>
         <p id="onet-attribution" class="small"></p>
       </details>
       <label>
@@ -31,18 +27,10 @@
     <form id="guidanceForm" class="hidden">
       <h2>1. Academic Marks (Grade 10)</h2>
       <div class="grid-2">
-        <label>Math Grade
-          <input type="number" id="mathGrade" min="60" max="100" value="85" required />
-        </label>
-        <label>Science Grade
-          <input type="number" id="sciGrade" min="60" max="100" value="85" required />
-        </label>
-        <label>English Grade
-          <input type="number" id="engGrade" min="60" max="100" value="85" required />
-        </label>
-        <label>TLE / Shop Grade
-          <input type="number" id="tleGrade" min="60" max="100" value="88" required />
-        </label>
+        <label>Math Grade <input type="number" id="mathGrade" min="60" max="100" value="85" required /></label>
+        <label>Science Grade <input type="number" id="sciGrade" min="60" max="100" value="85" required /></label>
+        <label>English Grade <input type="number" id="engGrade" min="60" max="100" value="85" required /></label>
+        <label>TLE / Shop Grade <input type="number" id="tleGrade" min="60" max="100" value="88" required /></label>
       </div>
 
       <label>TLE Specialization / Interest Area (for TechPro matching)
@@ -60,14 +48,9 @@
       </label>
 
       <h2>2. O*NET Interest Profiler</h2>
-      <p>Check the activities you would like to do. Don't think about the pay or
-         training it would take — just whether you'd enjoy it.</p>
-      <div id="onetAccordions"><!-- populated by JS --></div>
-
-      <p id="lowEngagementWarning" class="warning hidden">
-        ⚠️ Response Check: you selected either none or all 60 items. This usually
-        means the profile isn't a reliable read of your real interests.
-      </p>
+      <p>Check the activities you would like to do. Don't think about the pay or training it would take — just whether you'd enjoy it.</p>
+      <div id="onetAccordions"></div>
+      <p id="lowEngagementWarning" class="warning hidden">Response Check: you selected either none or all 60 items. This usually means the profile isn't a reliable read of your real interests.</p>
 
       <h2>3. Generate Your Pathway Recommendation</h2>
       <button type="submit" id="generateBtn">Generate Career Pathway Recommendations</button>
@@ -75,7 +58,7 @@
 
     <section id="resultsSection" class="hidden">
       <div id="resultsContent"></div>
-      <button id="downloadPdfBtn" class="hidden">📥 Download Full Guidance Summary (PDF)</button>
+      <button id="downloadPdfBtn" class="hidden">Download Full Guidance Summary (PDF)</button>
       <p id="pdfWarning" class="warning hidden"></p>
     </section>
 
