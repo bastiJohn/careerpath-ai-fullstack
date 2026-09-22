@@ -58,7 +58,8 @@ RESPONSE_SCHEMA = {
 }
 
 def _generate_with_resilience(prompt: str):
-    models_to_try = ["gemini-flash-lite-latest", "gemini-flash-latest"]
+    # Use standard explicit model identifiers
+    models_to_try = ["gemini-2.5-flash-lite", "gemini-2.5-flash"]
     last_error = None
     for model_name in models_to_try:
         for attempt in range(2):
@@ -127,34 +128,66 @@ Institution reference:
 """
     try:
         response = _generate_with_resilience(prompt)
-        result = response.parsed
+        
+        # Safely parse JSON text from response
+        if hasattr(response, 'parsed') and response.parsed is not None:
+            if isinstance(response.parsed, dict):
+                result = response.parsed
+            else:
+                result = json.loads(response.text)
+        else:
+            result = json.loads(response.text)
+
         return jsonify({"result": result, "scores": riasec_scores})
     except Exception as e:
+        print(f"Generation error detail: {e}")  # Printed to Railway Console
         return jsonify({
             "error": "generation_failed",
-            "message": "Something went wrong generating the recommendation. The AI service may be temporarily busy.",
+            "message": "Something went wrong generating the recommendation.",
             "technical_detail": str(e)
         }), 502
 
 @app.route("/api/pdf", methods=["POST"])
 def pdf():
-    payload = request.get_json(force=True, silent=True) or {}
-    scores = payload.get("scores", {})
-    result = payload.get("result", {})
+    payload = request.get_json(silent=True)
+    if not payload:
+        return (
+            jsonify({
+                "error": "invalid_request",
+                "message": "Malformed or missing JSON body.",
+            }),
+            400,
+        )
+
+    scores = payload.get("scores")
+    result = payload.get("result")
+    if not scores or not result:
+        return (
+            jsonify({
+                "error": "missing_data",
+                "message": "Both 'scores' and 'result' are required to generate the PDF.",
+            }),
+            400,
+        )
+
     try:
         pdf_bytes = create_pdf_report(scores, result)
         return send_file(
             io.BytesIO(pdf_bytes),
             mimetype="application/pdf",
             as_attachment=True,
-            download_name="CareerPath_AI_Guidance_Report.pdf"
+            download_name="CareerPath_AI_Guidance_Report.pdf",
         )
     except Exception as e:
-        return jsonify({
-            "error": "pdf_failed",
-            "message": "PDF export hit a snag. The recommendation itself is still valid.",
-            "technical_detail": str(e)
-        }), 500
-
-if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+        # app.logger.error(f"PDF generation failed: {e}")
+        return (
+            jsonify({
+                "error": "pdf_failed",
+                "message": (
+                    "PDF export hit a snag. The recommendation itself is still"
+                    " valid."
+                ),
+                "technical_detail": str(e),
+            }),
+            500,
+        )
