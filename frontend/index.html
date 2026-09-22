@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CareerPath AI — SHS Guidance Engine</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>🎓 CareerPath AI: SHS Guidance Engine</h1>
+    <p class="caption">Aligned to the Strengthened SHS Curriculum (DepEd Memorandum No. 012, s. 2026)</p>
+
+    <section id="consent-section">
+      <details open>
+        <summary>📄 Data Privacy Notice, Terms of Use &amp; O*NET Attribution</summary>
+        <p>
+          We collect Grade 10 marks and interest responses to provide exploratory
+          guidance under RA 10173 (Data Privacy Act of 2012). Results are
+          decision-support estimates and do not replace human counselors.
+        </p>
+        <p id="onet-attribution" class="small"></p>
+      </details>
+      <label>
+        <input type="checkbox" id="consentCheckbox" />
+        I agree to provide my academic and interest data for this guidance tool.
+      </label>
+      <p id="consentWarning" class="warning hidden">Please accept the terms above to proceed.</p>
+    </section>
+
+    <form id="guidanceForm" class="hidden">
+      <h2>1. Academic Marks (Grade 10)</h2>
+      <div class="grid-2">
+        <label>Math Grade
+          <input type="number" id="mathGrade" min="60" max="100" value="85" required />
+        </label>
+        <label>Science Grade
+          <input type="number" id="sciGrade" min="60" max="100" value="85" required />
+        </label>
+        <label>English Grade
+          <input type="number" id="engGrade" min="60" max="100" value="85" required />
+        </label>
+        <label>TLE / Shop Grade
+          <input type="number" id="tleGrade" min="60" max="100" value="88" required />
+        </label>
+      </div>
+
+      <label>TLE Specialization / Interest Area (for TechPro matching)
+        <select id="tleTrack">
+          <option>ICT</option>
+          <option>Industrial Arts</option>
+          <option>Home Economics</option>
+          <option>Agri-Fishery Arts</option>
+        </select>
+      </label>
+
+      <label>
+        <input type="checkbox" id="commerceInterest" />
+        I have a strong interest in business, trade, or commerce
+      </label>
+
+      <h2>2. O*NET Interest Profiler</h2>
+      <p>Check the activities you would like to do. Don't think about the pay or
+         training it would take — just whether you'd enjoy it.</p>
+      <div id="onetAccordions"><!-- populated by JS --></div>
+
+      <p id="lowEngagementWarning" class="warning hidden">
+        ⚠️ Response Check: you selected either none or all 60 items. This usually
+        means the profile isn't a reliable read of your real interests.
+      </p>
+
+      <h2>3. Generate Your Pathway Recommendation</h2>
+      <button type="submit" id="generateBtn">Generate Career Pathway Recommendations</button>
+    </form>
+
+    <section id="resultsSection" class="hidden">
+      <div id="resultsContent"></div>
+      <button id="downloadPdfBtn" class="hidden">📥 Download Full Guidance Summary (PDF)</button>
+      <p id="pdfWarning" class="warning hidden"></p>
+    </section>
+
+    <p id="errorBox" class="error hidden"></p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
