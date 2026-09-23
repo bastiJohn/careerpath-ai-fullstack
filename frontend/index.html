@@ -1,612 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CareerPath AI — SHS Guidance Engine</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
-
-  <style>
-    :root {
-      --bg: #090d16;
-      --card-bg: rgba(18, 24, 38, 0.72);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --card-border-hover: rgba(99, 102, 241, 0.4);
-
-      --primary: #6366f1;
-      --primary-hover: #4f46e5;
-      --primary-glow: rgba(99, 102, 241, 0.35);
-      --accent: #38bdf8;
-
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --text-dim: #64748b;
-
-      --warning-bg: rgba(239, 68, 68, 0.1);
-      --warning-border: rgba(239, 68, 68, 0.25);
-      --warning-text: #f87171;
-
-      --radius-lg: 20px;
-      --radius-md: 12px;
-      --radius-sm: 8px;
-
-      --ease: cubic-bezier(0.16, 1, 0.3, 1);
-      --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.15);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem 1.5rem;
-      position: relative;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* Background Atmosphere */
-    .glow-orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(120px);
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.45;
-      animation: pulse 8s ease-in-out infinite alternate;
-    }
-
-    .glow-top {
-      width: 480px;
-      height: 480px;
-      top: -120px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: radial-gradient(circle, var(--primary), transparent 70%);
-    }
-
-    .glow-bottom {
-      width: 380px;
-      height: 380px;
-      bottom: -100px;
-      right: 15%;
-      background: radial-gradient(circle, var(--accent), transparent 70%);
-    }
-
-    @keyframes pulse {
-      0% {
-        transform: scale(1) translateY(0);
-      }
-      100% {
-        transform: scale(1.08) translateY(20px);
-      }
-    }
-
-    /* Scale-In Animations */
-    @keyframes scaleIn {
-      0% {
-        opacity: 0;
-        transform: scale(0.92) translateY(18px);
-      }
-      65% {
-        opacity: 0.95;
-        transform: scale(1.01) translateY(-2px);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-
-    @keyframes elementPop {
-      0% {
-        opacity: 0;
-        transform: scale(0.96) translateY(10px);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-
-    /* Container */
-    .container {
-      width: 100%;
-      max-width: 680px;
-      position: relative;
-      z-index: 1;
-      animation: scaleIn 0.65s var(--ease-spring) backwards;
-    }
-
-    /* Header */
-    .header {
-      text-align: center;
-      margin-bottom: 2rem;
-      animation: elementPop 0.5s var(--ease) 0.1s backwards;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--card-border);
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--accent);
-      letter-spacing: 0.02em;
-      margin-bottom: 1.25rem;
-      backdrop-filter: blur(8px);
-    }
-
-    .badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background-color: var(--accent);
-      box-shadow: 0 0 10px var(--accent);
-    }
-
-    .title {
-      font-size: clamp(2rem, 5vw, 2.75rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin-bottom: 0.75rem;
-    }
-
-    .gradient-text {
-      background: linear-gradient(135deg, #a5b4fc, #38bdf8);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: transparent;
-    }
-
-    .caption {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-      max-width: 520px;
-      margin: 0 auto;
-    }
-
-    /* Glass Card */
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-lg);
-      padding: 1.75rem;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      animation: elementPop 0.55s var(--ease) 0.2s backwards;
-      transform-origin: center top;
-      transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
-    }
-
-    .card:hover {
-      transform: translateY(-2px) scale(1.005);
-      border-color: var(--card-border-hover);
-      box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.6),
-        0 0 25px var(--primary-glow);
-    }
-
-    /* Privacy Accordion */
-    .privacy-details {
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      background: rgba(255, 255, 255, 0.02);
-      overflow: hidden;
-      margin-bottom: 1.5rem;
-      transition: all 0.3s var(--ease);
-    }
-
-    .privacy-details[open] {
-      background: rgba(255, 255, 255, 0.03);
-      border-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .summary-btn {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 1.25rem;
-      font-weight: 600;
-      font-size: 0.9rem;
-      cursor: pointer;
-      user-select: none;
-      list-style: none;
-      color: var(--text-main);
-      transition: color 0.2s ease;
-    }
-
-    .summary-btn::-webkit-details-marker {
-      display: none;
-    }
-
-    .summary-btn:hover {
-      color: var(--accent);
-    }
-
-    .summary-text {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .icon {
-      width: 18px;
-      height: 18px;
-      stroke: var(--primary);
-    }
-
-    .chevron {
-      width: 16px;
-      height: 16px;
-      color: var(--text-dim);
-      transition: transform 0.3s var(--ease), color 0.2s;
-    }
-
-    .privacy-details[open] .chevron {
-      transform: rotate(180deg);
-      color: var(--accent);
-    }
-
-    .details-content {
-      padding: 0 1.25rem 1.25rem 1.25rem;
-      font-size: 0.875rem;
-      line-height: 1.6;
-      color: var(--text-muted);
-      animation: detailsFadeIn 0.3s var(--ease);
-    }
-
-    @keyframes detailsFadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-4px) scale(0.99);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    .details-content strong {
-      color: var(--text-main);
-    }
-
-    .small {
-      margin-top: 0.75rem;
-      font-size: 0.775rem;
-      color: var(--text-dim);
-    }
-
-    /* Custom Interactive Checkbox */
-    .custom-checkbox-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 0.75rem 1rem;
-      border-radius: var(--radius-md);
-      cursor: pointer;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid transparent;
-      transition: transform 0.15s ease, background 0.2s var(--ease), border-color 0.2s var(--ease);
-    }
-
-    .custom-checkbox-wrapper:hover {
-      background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(255, 255, 255, 0.08);
-    }
-
-    .custom-checkbox-wrapper:active {
-      transform: scale(0.985);
-    }
-
-    .hidden-input {
-      position: absolute;
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .checkbox-visual {
-      width: 22px;
-      height: 22px;
-      border-radius: 6px;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      display: grid;
-      place-items: center;
-      transition: all 0.2s var(--ease);
-      flex-shrink: 0;
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .check-icon {
-      width: 14px;
-      height: 14px;
-      stroke: #ffffff;
-      stroke-dasharray: 24;
-      stroke-dashoffset: 24;
-      transition: stroke-dashoffset 0.25s var(--ease);
-    }
-
-    @keyframes checkPop {
-      0% {
-        transform: scale(1);
-      }
-      45% {
-        transform: scale(1.22);
-      }
-      100% {
-        transform: scale(1);
-      }
-    }
-
-    .hidden-input:checked+.checkbox-visual {
-      background: var(--primary);
-      border-color: var(--primary);
-      box-shadow: 0 0 12px var(--primary-glow);
-      animation: checkPop 0.3s var(--ease-spring);
-    }
-
-    .hidden-input:checked+.checkbox-visual .check-icon {
-      stroke-dashoffset: 0;
-    }
-
-    .hidden-input:focus-visible+.checkbox-visual {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-    }
-
-    .checkbox-label {
-      font-size: 0.9rem;
-      color: var(--text-main);
-      user-select: none;
-      font-weight: 500;
-    }
-
-    /* Subdued Status Hint */
-    .status-hint {
-      display: block;
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--text-dim);
-      margin-top: 0.85rem;
-      letter-spacing: 0.01em;
-      transition: opacity 0.3s var(--ease), max-height 0.3s var(--ease), margin 0.3s var(--ease);
-    }
-
-    .status-hint.hidden {
-      opacity: 0;
-      max-height: 0;
-      margin: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    /* Warning Banner (for error states) */
-    @keyframes warnPop {
-      0% {
-        opacity: 0;
-        transform: scale(0.96) translateY(4px);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-
-    .warning {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 1rem;
-      padding: 0.85rem 1rem;
-      background: var(--warning-bg);
-      border: 1px solid var(--warning-border);
-      color: var(--warning-text);
-      border-radius: var(--radius-md);
-      font-size: 0.85rem;
-      font-weight: 500;
-      transition: all 0.25s var(--ease);
-    }
-
-    .warning:not(.hidden) {
-      animation: warnPop 0.3s var(--ease-spring);
-    }
-
-    .warning-icon {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    /* Spawning CTA Button & Animated Container */
-    .action-container {
-      overflow: hidden;
-      max-height: 0;
-      opacity: 0;
-      transform: scale(0.96) translateY(12px);
-      transition: max-height 0.4s var(--ease), opacity 0.35s var(--ease), transform 0.4s var(--ease-spring);
-      margin-top: 0;
-    }
-
-    .action-container.visible {
-      max-height: 90px;
-      opacity: 1;
-      transform: scale(1) translateY(0);
-      margin-top: 1.25rem;
-    }
-
-    .btn-redirect {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      padding: 1rem 1.5rem;
-      background: linear-gradient(135deg, var(--primary), #4f46e5);
-      color: #ffffff;
-      font-family: inherit;
-      font-size: 0.975rem;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: var(--radius-md);
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 8px 24px var(--primary-glow), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      transition: all 0.25s var(--ease);
-    }
-
-    .btn-redirect:hover {
-      background: linear-gradient(135deg, #7073fc, var(--primary));
-      transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(99, 102, 241, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    }
-
-    .btn-redirect:active {
-      transform: translateY(1px) scale(0.99);
-    }
-
-    .btn-redirect .btn-arrow {
-      width: 18px;
-      height: 18px;
-      transition: transform 0.25s var(--ease);
-    }
-
-    .btn-redirect:hover .btn-arrow {
-      transform: translateX(4px);
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
-
 <body>
-  <div class="glow-orb glow-top"></div>
-  <div class="glow-orb glow-bottom"></div>
-
   <main class="container">
-    <header class="header">
-      <div class="badge">
-        <span class="badge-dot"></span> DepEd Memo No. 012, s. 2026 Aligned
-      </div>
-      <h1 class="title">
-        CareerPath <span class="gradient-text">AI</span>
-      </h1>
-      <p class="caption">Strengthened Senior High School Guidance &amp; Career Matching Engine</p>
-    </header>
+    <h1>🎓 CareerPath AI: SHS Guidance Engine</h1>
+    <p class="caption">Aligned to the Strengthened SHS Curriculum (DepEd Memorandum No. 012, s. 2026)</p>
 
-    <section id="consent-section" class="card">
-      <details open class="privacy-details">
-        <summary class="summary-btn">
-          <span class="summary-text">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-              <polyline points="10 9 9 9 8 9"></polyline>
-            </svg>
-            Data Privacy Notice &amp; O*NET Attribution
-          </span>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </summary>
-        <div class="details-content">
-          <p>
-            We collect Grade 10 marks and interest metrics to compute decision-support guidance under
-            <strong>Republic Act 10173 (Data Privacy Act of 2012)</strong>. Generated outcomes are exploratory estimates
-            and do not substitute certified guidance counselors.
-          </p>
-          <p id="onet-attribution" class="small"></p>
-        </div>
+    <section id="consent-section">
+      <details open>
+        <summary>Data Privacy Notice, Terms of Use &amp; O*NET Attribution</summary>
+        <p>We collect Grade 10 marks and interest responses to provide exploratory guidance under RA 10173 (Data Privacy Act of 2012). Results are decision-support estimates and do not replace human counselors.</p>
+        <p id="onet-attribution" class="small"></p>
       </details>
+      <label>
+        <input type="checkbox" id="consentCheckbox" />
+        I agree to provide my academic and interest data for this guidance tool.
+      </label>
+      <p id="consentWarning" class="warning hidden">Please accept the terms above to proceed.</p>
+    </section>
 
-      <label class="custom-checkbox-wrapper">
-        <input type="checkbox" id="consentCheckbox" class="hidden-input" />
-        <span class="checkbox-visual">
-          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-            stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-        </span>
-        <span class="checkbox-label">I agree to submit academic and interest data for analysis.</span>
+    <form id="guidanceForm" class="hidden">
+      <h2>1. Academic Marks (Grade 10)</h2>
+      <div class="grid-2">
+        <label>Math Grade <input type="number" id="mathGrade" min="60" max="100" value="85" required /></label>
+        <label>Science Grade <input type="number" id="sciGrade" min="60" max="100" value="85" required /></label>
+        <label>English Grade <input type="number" id="engGrade" min="60" max="100" value="85" required /></label>
+        <label>TLE / Shop Grade <input type="number" id="tleGrade" min="60" max="100" value="88" required /></label>
+      </div>
+
+      <label>TLE Specialization / Interest Area (for TechPro matching)
+        <select id="tleTrack">
+          <option>ICT</option>
+          <option>Industrial Arts</option>
+          <option>Home Economics</option>
+          <option>Agri-Fishery Arts</option>
+        </select>
       </label>
 
-      <!-- Clean hint under checkbox that disappears upon acceptance -->
-      <span id="consentHint" class="status-hint">Please accept the terms above to proceed.</span>
+      <label>
+        <input type="checkbox" id="commerceInterest" />
+        I have a strong interest in business, trade, or commerce
+      </label>
 
-      <!-- Spawnable Redirect Button Container -->
-      <div id="actionContainer" class="action-container">
-        <a href="careerTrack.html" id="proceedBtn" class="btn-redirect">
-          <span>Proceed to Assessment</span>
-          <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
-        </a>
-      </div>
+      <h2>2. O*NET Interest Profiler</h2>
+      <p>Check the activities you would like to do. Don't think about the pay or training it would take — just whether you'd enjoy it.</p>
+      <div id="onetAccordions"></div>
+      <p id="lowEngagementWarning" class="warning hidden">Response Check: you selected either none or all 60 items. This usually means the profile isn't a reliable read of your real interests.</p>
 
-      <!-- Warning fallback (for submit validation error states if needed) -->
-      <p id="consentWarning" class="warning hidden">
-        <svg class="warning-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="8" x2="12" y2="12"></line>
-          <line x1="12" y1="16" x2="12.01" y2="16"></line>
-        </svg>
-        Please accept the terms above to proceed.
-      </p>
+      <h2>3. Generate Your Pathway Recommendation</h2>
+      <button type="submit" id="generateBtn">Generate Career Pathway Recommendations</button>
+    </form>
+
+    <section id="resultsSection" class="hidden">
+      <div id="resultsContent"></div>
+      <button id="downloadPdfBtn" class="hidden">Download Full Guidance Summary (PDF)</button>
+      <p id="pdfWarning" class="warning hidden"></p>
     </section>
+
+    <p id="errorBox" class="error hidden"></p>
   </main>
 
-  <script>
-    const consentCheckbox = document.getElementById('consentCheckbox');
-    const actionContainer = document.getElementById('actionContainer');
-    const consentWarning = document.getElementById('consentWarning');
-    const consentHint = document.getElementById('consentHint');
-
-    consentCheckbox.addEventListener('change', (e) => {
-      if (e.target.checked) {
-        // Show button with spring scale & slide
-        actionContainer.classList.add('visible');
-        consentHint.classList.add('hidden');
-        consentWarning.classList.add('hidden');
-      } else {
-        // Hide button smoothly & restore hint
-        actionContainer.classList.remove('visible');
-        consentHint.classList.remove('hidden');
-      }
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
-
 </html>
