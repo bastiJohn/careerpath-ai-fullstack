@@ -147,16 +147,25 @@ function renderResults(result) {
   resultsSection.classList.remove("hidden");
 }
 
-document.getElementById('download-pdf-btn').addEventListener('click', function () {
-    const element = document.getElementById('results-container'); // Change to your results wrapper ID
-    const opt = {
-        margin:       0.5,
-        filename:     'CareerPath_AI_Guidance_Report.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
-    html2pdf().set(opt).from(element).save();
+document.addEventListener('DOMContentLoaded', () => {
+    const downloadBtn = document.getElementById('download-pdf-btn');
+    
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', function () {
+            // Target the container that holds your generated recommendations
+            const element = document.getElementById('results-section') || document.body; 
+            
+            const opt = {
+                margin:       0.5,
+                filename:     'CareerPath_AI_Guidance_Report.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            
+            html2pdf().set(opt).from(element).save();
+        });
+    }
 });
 
 loadOnetQuestions();
