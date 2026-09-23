@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — careerPath.AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="wordmark-container">
+      <span class="wordmark-text" id="typewriterWordmark"></span>
+      <span class="typewriter-cursor"></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+    </ul>
+  </nav>
+  <div class="rule"></div>
+
+  <header class="about-hero">
+    <span class="eyebrow">Empowering Students</span>
+    <h1 class="page-title">Driven by Data &amp; Care</h1>
+    <p class="page-subtitle">
+      careerPath.AI bridges academic performance metrics with personalized career trajectory matching for Senior High School students across the Philippines.
+    </p>
+  </header>
+
+  <section class="container" style="padding-top: 0;">
+    <div class="grid-2">
+      <div class="info-card">
+        <h3>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--blue-accent)">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polygon points="12 8 8 12 12 16 12 8"></polygon>
+          </svg>
+          Our Mission
+        </h3>
+        <p style="color:var(--muted); line-height:1.65; font-size:clamp(0.88rem, 1.8vw, 0.98rem);">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--blue-accent)">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          DepEd Alignment
+        </h3>
+        <p style="color:var(--muted); line-height:1.65; font-size:clamp(0.88rem, 1.8vw, 0.98rem);">
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <main class="container" style="padding-top: 0;">
+    <div style="text-align:center; margin-bottom:clamp(32px, 6vw, 56px);">
+      <span class="eyebrow">The Architects</span>
+      <h2 style="font-family:'Space Grotesk', sans-serif; font-size:clamp(2rem, 5vw, 3rem); letter-spacing:-0.02em; margin-bottom:8px;">Meet The Team</h2>
+      <p style="color:var(--muted); max-width:500px; margin:0 auto; font-size:0.95rem;">
+        Hover over team members to see details or tap to expand full bio profiles.
+      </p>
+    </div>
+
+    <div class="team-grid">
+      <!-- Member 1 -->
+      <article class="team-card" onclick="openBio('Ralphy Jhed Cainong', 'Project Manager', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.')">
+        <div class="avatar-wrapper">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <span class="member-name">Ralphy Jhed Cainong</span>
+        <span class="member-role">Project Manager</span>
+        <p style="font-size:clamp(0.85rem, 1.8vw, 0.92rem); color:var(--muted); line-height:1.6;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <div class="social-links">
+          <a href="#" class="social-btn" aria-label="Facebook" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Member 2 -->
+      <article class="team-card" onclick="openBio('Melvin Ulanday', 'UX Researcher', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris massa. Vestibulum lacinia arcu eget nulla.')">
+        <div class="avatar-wrapper">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <span class="member-name">Melvin Ulanday</span>
+        <span class="member-role">UX Researcher</span>
+        <p style="font-size:clamp(0.85rem, 1.8vw, 0.92rem); color:var(--muted); line-height:1.6;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <div class="social-links">
+          <a href="#" class="social-btn" aria-label="Facebook" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Member 3 -->
+      <article class="team-card" onclick="openBio('Jhane Andrea Dalisay', 'UI/UX Researcher', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sodales ligula in libero.')">
+        <div class="avatar-wrapper">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <span class="member-name">Jhane Andrea Dalisay</span>
+        <span class="member-role">UI/UX Researcher</span>
+        <p style="font-size:clamp(0.85rem, 1.8vw, 0.92rem); color:var(--muted); line-height:1.6;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <div class="social-links">
+          <a href="#" class="social-btn" aria-label="Facebook" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Member 4 -->
+      <article class="team-card" onclick="openBio('Jella Mae Jebulan', 'Brand & UI Designer', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.')">
+        <div class="avatar-wrapper">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <span class="member-name">Jella Mae Jebulan</span>
+        <span class="member-role">Brand & UI Designer</span>
+        <p style="font-size:clamp(0.85rem, 1.8vw, 0.92rem); color:var(--muted); line-height:1.6;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <div class="social-links">
+          <a href="#" class="social-btn" aria-label="Facebook" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Member 5 -->
+      <article class="team-card" onclick="openBio('JB Galarido', 'Backend Developer', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.')">
+        <div class="avatar-wrapper">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <span class="member-name">Jb Galarido</span>
+        <span class="member-role">Backend Developer</span>
+        <p style="font-size:clamp(0.85rem, 1.8vw, 0.92rem); color:var(--muted); line-height:1.6;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <div class="social-links">
+          <a href="#" class="social-btn" aria-label="Facebook" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Member 6 -->
+      <article class="team-card" onclick="openBio('Basti John Banlat', 'Frontend Developer', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.')">
+        <div class="avatar-wrapper">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <span class="member-name">Basti John Banlat</span>
+        <span class="member-role">Frontend Developer</span>
+        <p style="font-size:clamp(0.85rem, 1.8vw, 0.92rem); color:var(--muted); line-height:1.6;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <div class="social-links">
+          <a href="#" class="social-btn" aria-label="Facebook" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          </a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <div class="modal-backdrop" id="bioModal" onclick="closeBio()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <button class="close-btn" onclick="closeBio()">✕</button>
+      <div style="text-align:center; margin-bottom:16px;">
+        <h3 id="modalName" style="font-family:'Space Grotesk',sans-serif; font-size:1.5rem; color:var(--ink);"></h3>
+        <span id="modalRole" class="member-role" style="margin-top:8px;"></span>
+      </div>
+      <p id="modalBio" style="color:var(--muted); line-height:1.65; font-size:0.95rem;"></p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 careerPath.AI — Senior High School Guidance System. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
