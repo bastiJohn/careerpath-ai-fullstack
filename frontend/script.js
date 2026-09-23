@@ -9,7 +9,7 @@ const lowEngagementWarning = document.getElementById("lowEngagementWarning");
 const generateBtn = document.getElementById("generateBtn");
 const resultsSection = document.getElementById("resultsSection");
 const resultsContent = document.getElementById("resultsContent");
-const downloadPdfBtn = document.getElementById("downloadPdfBtn");
+const downloadPdfBtn = document.getElementById('download-pdf-btn');
 const pdfWarning = document.getElementById("pdfWarning");
 const errorBox = document.getElementById("errorBox");
 
@@ -75,18 +75,18 @@ function getRiasecScores() {
 
 guidanceForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  errorBox.classList.add("hidden");
-  lowEngagementWarning.classList.add("hidden");
-  resultsSection.classList.add("hidden");
-  downloadPdfBtn.classList.add("hidden");
-  pdfWarning.classList.add("hidden");
+  errorBox?.classList.add("hidden");
+  lowEngagementWarning?.classList.add("hidden");
+  resultsSection?.classList.add("hidden");
+  downloadPdfBtn?.classList.add("hidden");
+  pdfWarning?.classList.add("hidden");
 
   const riasecScores = getRiasecScores();
   const totalChecked = Object.values(riasecScores).reduce((a, b) => a + b, 0);
 
   if (totalChecked === 0 || totalChecked === 60) {
-    lowEngagementWarning.classList.remove("hidden");
-    return;
+      lowEngagementWarning?.classList.remove("hidden");
+      return;
   }
 
   const payload = {
