@@ -150,22 +150,28 @@ function renderResults(result) {
 document.addEventListener('DOMContentLoaded', () => {
     const downloadBtn = document.getElementById('download-pdf-btn');
     
-    if (downloadBtn) {
-        downloadBtn.addEventListener('click', function () {
-            // Target the container that holds your generated recommendations
-            const element = document.getElementById('results-section') || document.body; 
-            
-            const opt = {
-                margin:       0.5,
-                filename:     'CareerPath_AI_Guidance_Report.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
-            
-            html2pdf().set(opt).from(element).save();
-        });
-    }
-});
+    if (downloadPdfBtn) {
+    downloadPdfBtn.addEventListener('click', function () {
+        // Target ONLY the results container, NOT the entire page/form
+        const element = document.getElementById('results-section'); 
+
+        if (!element) {
+            console.error("Results section element not found!");
+            return;
+        }
+
+        const opt = {
+            margin:       [0.4, 0.4, 0.4, 0.4], // 0.4 inch margins top, left, bottom, right
+            filename:     'CareerPath_AI_Guidance_Report.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true, logging: false },
+            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+            pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+        };
+
+        // Render and save
+        html2pdf().set(opt).from(element).save();
+    });
+}
 
 loadOnetQuestions();
