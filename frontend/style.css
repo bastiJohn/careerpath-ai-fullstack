@@ -87,6 +87,14 @@ body {
   color: var(--ink);
 }
 
+.nav-logo {
+  height: clamp(40px, 9vw, 90px);
+  width: auto;
+  object-fit: contain;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
 .typewriter-cursor {
   display: inline-block;
   width: 2px;
@@ -428,7 +436,11 @@ footer {
 /* ==========================================================================
    PAGE-SPECIFIC: INDEX.HTML
    ========================================================================== */
-.hero {
+    body {
+        background: url(assets/backgroundAndLogo/1.png);
+    }
+
+   .hero {
   position: relative;
   width: 100%;
   max-width: 1180px;
@@ -442,6 +454,7 @@ footer {
 }
 
 .shape-layer {
+    border-radius: 10px;
   position: absolute;
   top: clamp(20px, 5vw, 60px);
   right: clamp(2%, 5vw, 6%);
@@ -451,6 +464,7 @@ footer {
 }
 
 .shape-shadow {
+    border-radius: 10px;
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, var(--blue-accent) 0%, var(--blue-dark) 100%);
@@ -459,9 +473,57 @@ footer {
 }
 
 .shape-square {
+    border-radius: 10px;
   position: absolute;
   inset: 0;
   background: var(--blue-border);
+}
+
+.logo-shine-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  transform: translate(-50%, -50%) translateX(-20px);
+  width: 118%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.logo-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  filter: drop-shadow(0 6px 14px rgba(15, 23, 42, 0.18));
+}
+
+.logo-shine {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: url('assets/backgroundAndLogo/logo.png');
+  mask-image: url('assets/backgroundAndLogo/logo.png');
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.95) 48%,
+    rgba(255, 255, 255, 0.95) 52%,
+    transparent 65%
+  );
+  background-size: 250% 250%;
+  background-position: -160% -160%;
+  animation: logoShineSweep 3.6s ease-in-out infinite;
+}
+
+@keyframes logoShineSweep {
+  0% { background-position: -160% -160%; }
+  22% { background-position: 160% 160%; }
+  100% { background-position: 160% 160%; }
 }
 
 .hero-copy {
@@ -573,6 +635,10 @@ footer {
 /* ==========================================================================
    PAGE-SPECIFIC: ABOUT.HTML
    ========================================================================== */
+        body {
+        background: url(assets/backgroundAndLogo/1.png);
+    }
+
 .about-hero {
   width: 100%;
   max-width: 1180px;
@@ -659,16 +725,22 @@ footer {
 }
 
 .avatar-wrapper {
-  width: clamp(90px, 18vw, 120px);
-  height: clamp(90px, 18vw, 120px);
-  margin: 0 auto 20px;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 16px;
   border-radius: 50%;
-  background: var(--blue-light);
-  border: 3px solid var(--blue-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: border-color 0.3s ease, transform 0.3s ease;
+  overflow: hidden;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
 }
 
 .team-card:hover .avatar-wrapper {
@@ -685,6 +757,12 @@ footer {
   color: var(--ink);
   margin-bottom: 6px;
   display: block;
+  transition: color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.team-card:hover .member-name {
+  color: var(--blue-accent);
+  transform: scale(1.08);
 }
 
 .member-role {
@@ -721,7 +799,11 @@ footer {
 /* ==========================================================================
    PAGE-SPECIFIC: CAREERTRACK.HTML
    ========================================================================== */
-.top-bar {
+    body {
+        background: url(assets/backgroundAndLogo/2.png);
+    }
+
+   .top-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
