@@ -9,7 +9,7 @@ function initTypewriter() {
   const typewriterElement = document.getElementById("typewriterWordmark") || document.getElementById("wordmark");
   if (!typewriterElement) return;
 
-  const wordmarkText = "careerPath.AI";
+  const wordmarkText = "Discover Your Potential Today!";
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     typewriterElement.textContent = wordmarkText;
     return;
