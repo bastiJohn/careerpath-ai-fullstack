@@ -1,116 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CP.AI — CareerPath AI</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CP. AI — CareerPath AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="assets/backgroundAndLogo/favicon.png">
 </head>
+
 <body>
 
-  <nav class="nav">
-    <a href="index.html" class="wordmark-container" aria-label="careerPath.AI Home">
-      <span class="wordmark-text" id="typewriterWordmark"></span>
-      <span class="typewriter-cursor" aria-hidden="true"></span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="about.html">About</a></li>
-    </ul>
-  </nav>
-  <div class="rule"></div>
-
-  <section class="hero">
-    <div class="shape-layer" id="shapeLayer">
-      <div class="shape-shadow" id="shapeShadow"></div>
-      <div class="shape-square" id="shapeSquare"></div>
-    </div>
-
-    <div class="hero-copy" id="heroCopy">
-      <span class="eyebrow">Senior High School Guidance</span>
-      <h1 class="headline" id="headline">
-        <span>CP.</span>
-        <span>AI.</span>
-      </h1>
-      <p class="sub">
-        Strengthened Senior High School Guidance &amp; Career Matching Engine
-      </p>
-    </div>
-
-    <svg class="scroll-cue" viewBox="0 0 22 46" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <line x1="11" y1="2" x2="11" y2="38"></line>
-      <polyline points="2 29 11 40 20 29"></polyline>
-    </svg>
-  </section>
-
-  <main class="container">
-    <section id="consent-section" class="card card-tinted">
-      <div class="badge">
-        <span class="badge-dot"></span> DepEd Memo No. 012, s. 2026 Aligned
-      </div>
-
-      <details open class="privacy-details">
-        <summary class="summary-btn">
-          <span style="display:flex; align-items:center; gap:10px; font-size:clamp(0.85rem, 2vw, 1rem);">
-            <svg style="width:20px; height:20px; stroke:var(--blue-accent);" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-              <polyline points="10 9 9 9 8 9"></polyline>
-            </svg>
-            Data Privacy Notice &amp; O*NET Attribution
-          </span>
-          <svg class="chevron" style="width:20px; height:20px; stroke:var(--blue-accent); transition:transform 0.2s;" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </summary>
-        <div class="details-content">
-          <p>
-            We collect Grade 10 marks and interest metrics to compute decision-support guidance under
-            <strong>Republic Act 10173 (Data Privacy Act of 2012)</strong>. Generated outcomes are exploratory estimates
-            and do not substitute certified guidance counselors.
-          </p>
-          <p id="onet-attribution" style="font-size:0.8rem; opacity:0.85; margin-top:10px; line-height:1.5; color:var(--muted);"></p>
-        </div>
-      </details>
-
-      <label class="custom-checkbox-wrapper">
-        <input type="checkbox" id="consentCheckbox" class="hidden-input" aria-describedby="consentHint consentWarning" />
-        <span class="checkbox-visual">
-          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-        </span>
-        <span style="font-size:clamp(0.88rem, 2vw, 0.95rem); font-weight:600; color:var(--ink);">I agree to submit academic and interest data for analysis.</span>
-      </label>
-
-      <span id="consentHint" style="display:block; font-size:clamp(0.78rem, 1.6vw, 0.85rem); color:var(--muted); margin-bottom:20px;">Please accept the terms above to proceed.</span>
-
-      <div style="margin-top:20px;">
-        <a href="careerTrack.html" id="proceedBtn" class="btn-redirect" aria-disabled="true" tabindex="-1">
-          <span>Proceed to Assessment</span>
-          <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
+    <nav class="nav">
+        <a href="index.html" class="wordmark-container" aria-label="careerPath.AI Home">
+            <img src="assets/backgroundAndLogo/full_Logo.png" alt="" class="nav-logo">
+            <span class="wordmark-text" id="typewriterWordmark"></span>
+            <span class="typewriter-cursor" aria-hidden="true"></span>
         </a>
-      </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+    <div class="rule"></div>
 
-      <p id="consentWarning" class="banner warning hidden" role="alert" aria-live="assertive">
-        <svg class="banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="8" x2="12" y2="12"></line>
-          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    <section class="hero">
+        <div class="shape-layer" id="shapeLayer">
+            <div class="shape-shadow" id="shapeShadow"></div>
+            <div class="shape-square" id="shapeSquare"></div>
+
+            <div class="logo-shine-wrapper" aria-hidden="false">
+                <img src="assets/backgroundAndLogo/misc.png" alt="careerPath.AI misc" class="misc-image">
+                <div class="logo-shine"></div>
+            </div>
+        </div>
+
+        <div class="hero-copy" id="heroCopy">
+            <span class="eyebrow">Senior High School Guidance</span>
+            <h1 class="headline" id="headline">
+                <span> Career</span>
+                <span>Path AI</span>
+            </h1>
+            <p class="sub">
+                Explore and Discover Your Career Path: A Senior High School Guidance &amp; Career Matching Engine.
+            </p>
+        </div>
+
+        <svg class="scroll-cue" viewBox="0 0 22 46" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="11" y1="2" x2="11" y2="38"></line>
+            <polyline points="2 29 11 40 20 29"></polyline>
         </svg>
-        Please accept the terms above to proceed.
-      </p>
     </section>
-  </main>
 
-  <script src="script.js"></script>
+    <main class="container">
+        <section id="consent-section" class="card card-tinted">
+            <div class="badge">
+                <span class="badge-dot"></span> DepEd Memo No. 012, s. 2026 Aligned
+            </div>
+
+            <details open class="privacy-details">
+                <summary class="summary-btn">
+                    <span style="display:flex; align-items:center; gap:10px; font-size:clamp(0.85rem, 2vw, 1rem);">
+                        <svg style="width:20px; height:20px; stroke:var(--blue-accent);" viewBox="0 0 24 24" fill="none"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                        Data Privacy Notice &amp; O*NET Attribution
+                    </span>
+                    <svg class="chevron"
+                        style="width:20px; height:20px; stroke:var(--blue-accent); transition:transform 0.2s;"
+                        viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </summary>
+                <div class="details-content">
+                    <p>
+                        We collect Grade 10 marks and interest metrics to compute decision-support guidance under
+                        <strong>Republic Act 10173 (Data Privacy Act of 2012)</strong>. Generated outcomes are
+                        exploratory estimates
+                        and do not substitute certified guidance counselors.
+                    </p>
+                    <p id="onet-attribution"
+                        style="font-size:0.8rem; opacity:0.85; margin-top:10px; line-height:1.5; color:var(--muted);">
+                    </p>
+                </div>
+            </details>
+
+            <label class="custom-checkbox-wrapper">
+                <input type="checkbox" id="consentCheckbox" class="hidden-input"
+                    aria-describedby="consentHint consentWarning" />
+                <span class="checkbox-visual">
+                    <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </span>
+                <span style="font-size:clamp(0.88rem, 2vw, 0.95rem); font-weight:600; color:var(--ink);">I agree to
+                    submit academic and interest data for analysis.</span>
+            </label>
+
+            <span id="consentHint"
+                style="display:block; font-size:clamp(0.78rem, 1.6vw, 0.85rem); color:var(--muted); margin-bottom:20px;">Please
+                accept the terms above to proceed.</span>
+
+            <div style="margin-top:20px;">
+                <a href="careerTrack.html" id="proceedBtn" class="btn-redirect" aria-disabled="true" tabindex="-1">
+                    <span>Proceed to Assessment</span>
+                    <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+            </div>
+
+            <p id="consentWarning" class="banner warning hidden" role="alert" aria-live="assertive">
+                <svg class="banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                Please accept the terms above to proceed.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+    <p>&copy; 2026 careerPath.AI — Senior High School Guidance System. All rights reserved.</p>
+  </footer>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
